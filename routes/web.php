@@ -11,4 +11,6 @@
 |
 */
 
+// 認証関連のルーティングの追加
+Auth::routes();
 Route::get('/', 'ArticleController@index');
