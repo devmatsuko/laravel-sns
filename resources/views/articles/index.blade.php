@@ -3,6 +3,7 @@
 @section('title', '記事一覧')
 
 @section('content')
+@include('nav')
   <div class="container">
     @foreach($articles as $article)
       <div class="card mt-3">
@@ -11,7 +12,7 @@
           <div>
             <div class="font-weight-bold">
               {{ $article->user->name }}
-            </div> 
+            </div>
             <div class="font-weight-lighter">
               {{ $article->created_at->format('Y/m/d H:i') }}
             </div>
