@@ -11,6 +11,9 @@
         <div class="card-body text-center">
           <h2 class="h3 card-title text-center mt-2">ユーザー登録</h2>
 
+          <!-- エラーメッセージ -->
+          @include('error_card_list')
+
           <div class="card-text">
             <!-- ユーザー登録フォーム -->
             <form method="POST" action="{{ route('register') }}">
