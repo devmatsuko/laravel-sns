@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    // ポリシーの使用
+    public function __construct()
+    {
+        $this->authorizeResource(Article::class, 'article');
+    }
+
     public function index()
     {
         // Articlesのデータを全て取得
