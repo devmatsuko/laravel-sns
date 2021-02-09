@@ -11,8 +11,16 @@
 |
 */
 
-// 認証関連のルーティングの追加
+// 認証関連のルーティング
 Auth::routes();
+
+// 各種ページのルーティング
 Route::get('/', 'ArticleController@index')->name('articles.index');
 Route::resource('/articles', 'ArticleController')->except(['index','show'])->middleware('auth');
 Route::resource('/articles', 'ArticleController')->only(['show']);
+
+// いいね関連のルーティング
+Route::prefix('articles')->name('articles.')->group(function () {
+    Route::put('/{article}/like', 'ArticleController@like')->name('like')->middleware('auth');
+    Route::delete('/{article}/like', 'ArticleController@unlike')->name('unlike')->middleware('auth');
+});
