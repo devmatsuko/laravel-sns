@@ -6,7 +6,7 @@
     >
       <i class="fas fa-heart mr-1"
       :class="{'red-text':this.isLikedBy, 'animated heartBeat fast':this.gotToLike}"
-      @click="clickLike" 
+      @click="clickLike"
       />
     </button>
     {{ countLikes }}

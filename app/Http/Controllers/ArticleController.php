@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 // モデルのインポート
 use App\Article;
+use App\Tag;
 // リクエストファイルのインポート
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
@@ -32,6 +33,13 @@ class ArticleController extends Controller
         $article->fill($request->all());
         $article->user_id = $request->user()->id;
         $article->save();
+
+        // タグの保存
+        $request->tags->each(function ($tagName) use ($article) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $article->tags()->attach($tag);
+        });
+
         return redirect()->route('articles.index');
     }
 

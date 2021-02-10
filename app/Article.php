@@ -20,6 +20,12 @@ class Article extends Model
         return $this->belongsTo('App\User');
     }
 
+    // Tagモデルとのリレーション
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Tag')->withTimestamps();
+    }
+
     // いいねにおけるArticleモデルとUserモデルのリレーション(多対多)
     public function likes(): BelongsToMany
     {
