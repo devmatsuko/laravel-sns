@@ -45,12 +45,30 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
-        return view('articles.edit', ['article' => $article]);
+        // タグを取得する
+        $tagNames = $article->tags->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        // 更新前の記事とタグをビューに引き渡す
+        return view('articles.edit', [
+            'article' => $article,
+            'tagNames' => $tagNames,
+        ]);
     }
 
     public function update(ArticleRequest $request, Article $article)
     {
         $article->fill($request->all())->save();
+
+        // 一旦記事とタグの紐付けを削除
+        $article->tags()->detach();
+        // 記事とタグの紐付けの再生成
+        $request->tags->each(function ($tagName) use ($article) {
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $article->tags()->attach($tag);
+        });
+
         return redirect()->route('articles.index');
     }
 
