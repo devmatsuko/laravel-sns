@@ -25,7 +25,14 @@ class ArticleController extends Controller
 
     public function create()
     {
-        return view('articles.create');
+        // 全タグを取得する
+        $allTagNames = Tag::all()->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        return view('articles.create', [
+            'allTagNames' => $allTagNames,
+        ]);
     }
 
     public function store(ArticleRequest $request, Article $article)
@@ -45,8 +52,13 @@ class ArticleController extends Controller
 
     public function edit(Article $article)
     {
-        // タグを取得する
+        // 更新前のタグを取得する
         $tagNames = $article->tags->map(function ($tag) {
+            return ['text' => $tag->name];
+        });
+
+        // 全タグを取得する
+        $allTagNames = Tag::all()->map(function ($tag) {
             return ['text' => $tag->name];
         });
 
@@ -54,6 +66,7 @@ class ArticleController extends Controller
         return view('articles.edit', [
             'article' => $article,
             'tagNames' => $tagNames,
+            'allTagNames' => $allTagNames,
         ]);
     }
 
