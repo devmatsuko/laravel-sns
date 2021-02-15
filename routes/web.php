@@ -27,3 +27,8 @@ Route::prefix('articles')->name('articles.')->group(function () {
 
 // タグ検索のルーティング
 Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
+
+// ユーザー関連のルーティング
+Route::prefix('users')->name('users.')->group(function () {
+    Route::get('/{name}', 'UserController@show')->name('show');
+});
