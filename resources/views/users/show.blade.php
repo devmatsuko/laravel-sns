@@ -13,6 +13,7 @@
         </a>
         @if( Auth::id() !== $user->id )
         <follow-button class="ml-auto">
+        :initial-is-followed-by='@json($user->isFollowedBy(Auth::user()))'
         </follow-button>
         @endif
       </div>
