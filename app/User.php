@@ -48,10 +48,16 @@ class User extends Authenticatable
         $this->notify(new PasswordResetNotification($token, new BareMail()));
     }
 
-    // フォロー、フォロワーのリレーションシップ
+    // フォロー、アンフォローのリレーションシップ
     public function followers(): BelongsToMany
     {
         return $this->belongsToMany('App\User', 'follows', 'followee_id', 'follower_id')->withTimestamps();
+    }
+
+    // フォロワーのリレーションシップ
+    public function followings(): BelongsToMany
+    {
+        return $this->belongsToMany('App\User', 'follows', 'follower_id', 'followee_id')->withTimestamps();
     }
 
     // ユーザーをフォローしているかを判定する
