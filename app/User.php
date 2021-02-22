@@ -68,4 +68,14 @@ class User extends Authenticatable
             : false;
     }
 
+    // フォローフォロワー数を算出する
+    public function getCountFollowersAttribute(): int
+    {
+        return $this->followers->count();
+    }
+
+    public function getCountFollowingsAttribute(): int
+    {
+        return $this->followings->count();
+    }
 }
