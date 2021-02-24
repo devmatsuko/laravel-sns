@@ -32,8 +32,12 @@ Route::get('/tags/{name}', 'TagController@show')->name('tags.show');
 Route::prefix('users')->name('users.')->group(function () {
     Route::get('/{name}', 'UserController@show')->name('show');
 
-    // フォロー関連のルーティング
+    // いいねタブのルーティング
+    Route::get('/{name}/likes', 'UserController@likes')->name('likes');
+
+    // ログイン済みの場合のみアクセス可能
     Route::middleware('auth')->group(function () {
+        // フォロー関連のルーティング
         Route::put('/{name}/follow', 'UserController@follow')->name('follow');
         Route::delete('/{name}/follow', 'UserController@unfollow')->name('unfollow');
     });

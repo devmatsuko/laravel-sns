@@ -55,6 +55,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Article');
     }
 
+    // ユーザーがいいねしている記事を取得する
+    public function likes(): BelongsToMany
+    {
+        return $this->belongsToMany('App\Article', 'likes')->withTimestamps();
+    }
+
     // フォロー、アンフォローのリレーションシップ
     public function followers(): BelongsToMany
     {
