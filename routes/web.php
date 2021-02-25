@@ -35,6 +35,10 @@ Route::prefix('users')->name('users.')->group(function () {
     // いいねタブのルーティング
     Route::get('/{name}/likes', 'UserController@likes')->name('likes');
 
+    // フォローフォロワーリストの取得
+    Route::get('/{name}/followings', 'UserController@followings')->name('followings');
+    Route::get('/{name}/followers', 'UserController@followers')->name('followers');
+
     // ログイン済みの場合のみアクセス可能
     Route::middleware('auth')->group(function () {
         // フォロー関連のルーティング
